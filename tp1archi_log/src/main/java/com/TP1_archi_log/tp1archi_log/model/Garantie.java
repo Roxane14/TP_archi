@@ -10,18 +10,30 @@ public class Garantie {
     public String getNom() {
         return nom;
     }
+    
+    public void setNom(String n) {
+        this.nom = n;
+    }
 
     public int getMontant() {
         return montant;
+    }
+    
+    public void setMontant(int n) {
+        this.montant = n;
     }
 
     public String getDescription() {
         return description;
     }
+    
+    public void setDescription (String n) {
+        this.description = n;
+    }
 
-    private final String nom;
-    private final int montant;
-    private final String description;
+    private String nom;
+    private int montant;
+    private String description;
 
     public Garantie(int id, String nom, int montant, String description) {
         this.id = id;

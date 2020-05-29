@@ -27,6 +27,8 @@ public class GarantieController {
     {
         Garantie garantie = new Garantie(BDDfake.seq.getAndIncrement(), nom, montant, description);
         BDDfake.bddfake.put(garantie.getId(), garantie);
+        
+        System.out.println("Création d'une garantie");
 
         return ResponseEntity.ok().body(garantie.getId());
     }
@@ -65,17 +67,38 @@ public class GarantieController {
     public ResponseEntity<Garantie> getGarantieInfo(@PathVariable("id") int id){
         if(BDDfake.bddfake.containsKey(id)){
             Garantie garantie = BDDfake.bddfake.get(id);
+            System.out.println("Affichage de la garantie : " + id);
             return ResponseEntity.ok().body(garantie);
         }
 
         return ResponseEntity.notFound().build();
     }
+    
+    /**
+     * Requete PUT pour modifier une garantie déjà présente dans la base de données
+     * @param nom
+     * @param montant
+     * @param description
+     */
 
     @PutMapping("/api/garantie/{id}")
-    public ResponseEntity<Garantie> updateGarantie(@PathVariable("id") int id, @RequestBody Garantie garantie){
+    public ResponseEntity<Garantie> updateGarantie(@PathVariable("id") int id,
+													    		@RequestParam(required = false) String nom,
+													    		@RequestParam(defaultValue = "0") int montant,
+													            @RequestParam(required = false) String description)
+    {
         if(BDDfake.bddfake.containsKey(id)){
-            BDDfake.bddfake.put(id,garantie);
-            System.out.println("Mise à jour de la garantie : " + garantie);
+        	Garantie garantie = BDDfake.bddfake.get(id);
+        	
+        	if(!nom.equals(null))
+        		garantie.setNom(nom);
+        	if(montant != 0)
+        		garantie.setMontant(montant);
+        	if(!description.equals(null))
+        		garantie.setDescription(description);
+        	
+        	
+            System.out.println("Mise à jour de la garantie : " + id);
 
             return ResponseEntity.ok().body(garantie);
         }
@@ -85,3 +108,5 @@ public class GarantieController {
 
 
 }
+
+//@RequestParam(required = false) int montant,
