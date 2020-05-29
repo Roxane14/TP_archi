@@ -83,18 +83,18 @@ public class GarantieController {
 
     @PutMapping("/api/garantie/{id}")
     public ResponseEntity<Garantie> updateGarantie(@PathVariable("id") int id,
-													    		@RequestParam(required = false) String nom,
+													    		@RequestParam(defaultValue = "0") String nom,
 													    		@RequestParam(defaultValue = "0") int montant,
-													            @RequestParam(required = false) String description)
+													            @RequestParam(defaultValue = "0") String description)
     {
         if(BDDfake.bddfake.containsKey(id)){
         	Garantie garantie = BDDfake.bddfake.get(id);
         	
-        	if(!nom.equals(null))
+        	if(!nom.equals("0"))
         		garantie.setNom(nom);
         	if(montant != 0)
         		garantie.setMontant(montant);
-        	if(!description.equals(null))
+        	if(!description.equals("0"))
         		garantie.setDescription(description);
         	
         	
@@ -109,4 +109,3 @@ public class GarantieController {
 
 }
 
-//@RequestParam(required = false) int montant,
