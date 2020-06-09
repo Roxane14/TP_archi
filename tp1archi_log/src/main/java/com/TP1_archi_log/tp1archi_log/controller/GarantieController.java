@@ -6,12 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.concurrent.atomic.AtomicLong;
-
 @RestController
 public class GarantieController {
 
-    private final AtomicLong counter = new AtomicLong();
 
     /**
      * Requete POST qui créé une nouvelle garantie dans la base de donnée.
